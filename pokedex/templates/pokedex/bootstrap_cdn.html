@@ -1,0 +1,301 @@
+<!doctype html>
+{% load static %}{% load cache %}
+
+{% cache None main_header %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/solar/bootstrap.min.css" rel="stylesheet" integrity="sha384-5R1YdaymXlWnSzNCZhBMJnL6ZRBonq3cnj8A38eihLMaAb66oNJhErrQy9jIGHkl" crossorigin="anonymous">  
+    
+    
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'pokedex/style.css' %}" />
+  
+  <style>
+
+    .seethru{
+        background-color: rgba(7,54,66,0.25);
+    }
+      .dropdown-menu {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    
+    /* Style the dropdown input field */
+    #myInput1, #myInput2, #myInput3{
+        padding: 10px;
+        margin-top: -6px;
+    }
+
+    .btn-primary {
+      width:40%;
+      padding: -10px 0;
+    }
+    
+    
+    .list:hover {
+        position: relative;          
+        top: -10px;
+        opacity: 0.5;
+    }
+    .pokemon-card {
+        background-color: rgba(245, 245, 245, 1);
+    }
+    
+    .bug {
+        background-color: #729f3f;
+    }
+    
+    .dark {
+        background-color: #707070;
+    }
+    
+    .dragon {
+        background-color: #53a4cf;
+        background: linear-gradient(#53a4cf , #f16e57 );
+        
+    }
+    .dragon-single{
+        background-color: #f16e57;
+    }
+    .electric {
+        background-color: #eed535;
+    }
+    
+    .fairy {
+        background-color: #fdb9e9;
+    }
+    
+    .fighting {
+        background-color: #d56723;
+    }
+    
+    .fire {
+        background-color: #fd7d24;
+    }
+    
+    .flying {
+        background-image: linear-gradient( #3dc7ef, #bdb9b8);
+    }
+    .flying-single{
+        background-color: #3dc7ef;
+    }
+    
+    .ghost {
+        background-color: #7b62a3;
+    }
+    
+    .grass {
+        background-color: #9bcc50;
+    }
+    
+    .ground {
+        background-image: linear-gradient( #f7de3f, #ab9842 );
+    }
+    .ground-single{
+        background-color: #ab9842;
+    }
+    
+    .ice {
+        background-color: #51c4e7;
+    }
+    
+    .normal {
+        background-color: #a4acaf;
+    }
+    
+    .poison {
+        background-color: #b97fc9;
+    }
+    
+    .psychic {
+        background-color: #f366b9;
+    }
+    
+    .rock {
+        background-color: #a38c21;
+    }
+    
+    .steel {
+        background-color: #9eb7b8;
+    }
+    
+    .water {
+        background-color: #4592c4;
+    }
+
+
+
+    .bug-single {
+        background-color: #729f3f;
+    }
+    
+    .dark-single {
+        background-color: #707070;
+    }
+
+    .electric-single {
+        background-color: #eed535;
+    }
+    
+    .fairy-single {
+        background-color: #fdb9e9;
+    }
+    
+    .fighting-single {
+        background-color: #d56723;
+    }
+    
+    .fire-single {
+        background-color: #fd7d24;
+    }
+
+    .ghost-single {
+        background-color: #7b62a3;
+    }
+    
+    .grass-single {
+        background-color: #9bcc50;
+    }
+    
+    .ice-single {
+        background-color: #51c4e7;
+    }
+    
+    .norma-singlel {
+        background-color: #a4acaf;
+    }
+    
+    .poison-single {
+        background-color: #b97fc9;
+    }
+    
+    .psychic-single {
+        background-color: #f366b9;
+    }
+    
+    .rock-single {
+        background-color: #a38c21;
+    }
+    
+    .steel-single {
+        background-color: #9eb7b8;
+    }
+    
+    .water-single {
+        background-color: #4592c4;
+    }
+      
+  </style>
+
+  </head>
+  {% endcache %}
+  <body class="mt-5 pt-5 pb-5"> 
+    
+    {% cache None main_nav %}
+
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+          <a class="navbar-brand" href="{% url 'pokedex:index' %}" >Pokemon-Dex</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+              
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" >Filter by Type</a>
+                  <ul class="dropdown-menu scrollable-menu">
+                  <input class="form-control" id="myInput1" type="text" placeholder="Search...">
+
+                  {% for type in types_nav %}
+                    <li><a class="dropdown-item" href="{% url 'pokedex:type_detail' type.id %}">{{ type.name|title }}</a></li>
+                  {% endfor %}
+                  </ul>
+
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Filter by Ability</a>
+                  <ul class="dropdown-menu scrollable-menu">
+                  <input class="form-control" id="myInput2" type="text" placeholder="Search...">
+
+                  {% for ability in abilities_nav %}
+                      <li><a class="dropdown-item" href="{% url 'pokedex:ability_detail' ability.id %}">{{ ability.name|title }}</a></li>
+                  {% endfor %}
+                  </ul>
+
+              </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Filter by Move</a>
+                  <ul class="dropdown-menu scrollable-menu">
+                  <input class="form-control" id="myInput3" type="text" placeholder="Search...">
+
+                  {% for move in moves_nav %}
+                      <li><a class="dropdown-item" href="{% url 'pokedex:move_detail' move.id %}">{{ move.name|title }}</a></li>
+                  {% endfor %}
+                  </ul>
+
+              </li>
+              
+
+            </ul>
+            
+          </div>
+        </nav>
+        {% endcache %}
+
+      <div class="container-fluid w-75">
+
+
+        {% block content %}
+        {% endblock %}
+
+      </div>
+    
+    <script>
+        $(document).ready(function(){
+          $("#myInput1").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".dropdown-menu li").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+      </script>
+      <script>
+          $(document).ready(function(){
+            $("#myInput2").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $(".dropdown-menu li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+        </script>
+        <script>
+            $(document).ready(function(){
+              $("#myInput3").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".dropdown-menu li").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+          </script>
+
+  </body>
+
+</html>
