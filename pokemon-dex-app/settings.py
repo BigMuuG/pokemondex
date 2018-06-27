@@ -32,6 +32,8 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+# DEBUG = True
+
 
 ALLOWED_HOSTS = ['pokemon-dex-app.herokuapp.com',
                  '127.0.0.1', 'www.pokemondex.org', ]
@@ -50,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'pokedex.apps.PokedexConfig',
 ]
 
@@ -63,7 +64,6 @@ MIDDLEWARE = [
 
     'django.middleware.cache.FetchFromCacheMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
