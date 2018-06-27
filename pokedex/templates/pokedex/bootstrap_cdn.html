@@ -10,20 +10,63 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/solar/bootstrap.min.css" rel="stylesheet" integrity="sha384-5R1YdaymXlWnSzNCZhBMJnL6ZRBonq3cnj8A38eihLMaAb66oNJhErrQy9jIGHkl" crossorigin="anonymous">  
-    
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.1/slate/bootstrap.min.css" rel="stylesheet" integrity="sha384-T5/MPhcu5PtijW3XQzMbwUJshIZS5VzRn+lpMXRN8EnZpxBc8yDYiGkTj7pTWBXQ" crossorigin="anonymous">    
     
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    <!-- Font-awesome icons -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'pokedex/style.css' %}" />
-  
+    <link rel="shortcut icon" href="{%  static 'pokedex/favicon.png' %}">
+
   <style>
 
+    #return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    }
+    #return-to-top i {
+        color: #fff;
+        margin: 0;
+        position: relative;
+        left: 16px;
+        top: 13px;
+        font-size: 19px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+    #return-to-top:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+    #return-to-top:hover i {
+        color: #fff;
+        top: 5px;
+    }
     .seethru{
         background-color: rgba(7,54,66,0.25);
     }
@@ -54,15 +97,16 @@
     }
     
     .bug {
-        background-color: #729f3f;
+
+        background: linear-gradient(#729f3f 50%, rgb(54, 54, 54))  ;
+
     }
     
     .dark {
-        background-color: #707070;
+        background: linear-gradient(#707070, rgb(54, 54, 54));
     }
     
     .dragon {
-        background-color: #53a4cf;
         background: linear-gradient(#53a4cf , #f16e57 );
         
     }
@@ -70,69 +114,69 @@
         background-color: #f16e57;
     }
     .electric {
-        background-color: #eed535;
+        background: linear-gradient(#eed535, rgb(54, 54, 54));
     }
     
     .fairy {
-        background-color: #fdb9e9;
+        background: linear-gradient(#fdb9e9, rgb(54, 54, 54));
     }
     
     .fighting {
-        background-color: #d56723;
+        background: linear-gradient(#d56723, rgb(54, 54, 54));
     }
     
     .fire {
-        background-color: #fd7d24;
+        background: linear-gradient(#fd7d24, rgb(54, 54, 54));
     }
     
     .flying {
-        background-image: linear-gradient( #3dc7ef, #bdb9b8);
+        background: linear-gradient( #3dc7ef, #bdb9b8);
     }
     .flying-single{
         background-color: #3dc7ef;
     }
     
     .ghost {
-        background-color: #7b62a3;
+        background: linear-gradient(#7b62a3, rgb(54, 54, 54));
     }
     
     .grass {
-        background-color: #9bcc50;
+        background: linear-gradient(#9bcc50, rgb(54, 54, 54));
     }
     
     .ground {
-        background-image: linear-gradient( #f7de3f, #ab9842 );
+        background: linear-gradient( #f7de3f, #554313 );
     }
     .ground-single{
         background-color: #ab9842;
     }
     
     .ice {
-        background-color: #51c4e7;
+        background: linear-gradient(#51c4e7, rgb(54, 54, 54));
     }
     
     .normal {
-        background-color: #a4acaf;
+        background: linear-gradient(#a4acaf, rgb(54, 54, 54));
     }
     
     .poison {
-        background-color: #b97fc9;
+        background: linear-gradient(#b97fc9, rgb(54, 54, 54));
     }
     
     .psychic {
-        background-color: #f366b9;
+        background: linear-gradient(#f366b9, rgb(54, 54, 54));
     }
     
     .rock {
-        background-color: #a38c21;
+        background: linear-gradient(#a38c21, rgb(54, 54, 54));
     }
     
     .steel {
-        background-color: #9eb7b8;
+        background: linear-gradient(#9eb7b8, rgb(54, 54, 54));
     }
     
     .water {
-        background-color: #4592c4;
+        background: linear-gradient(#4592c4, rgb(54, 54, 54));
     }
 
 
@@ -173,7 +217,7 @@
         background-color: #51c4e7;
     }
     
-    .norma-singlel {
+    .normal-single {
         background-color: #a4acaf;
     }
     
@@ -201,9 +245,8 @@
 
   </head>
   {% endcache %}
-  <body class="mt-5 pt-5 pb-5"> 
-    
-    {% cache None main_nav %}
+  <body class="mt-5 pt-5"> 
+        {% cache None navbar_cache %}
 
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
           <a class="navbar-brand" href="{% url 'pokedex:index' %}" >Pokemon-Dex</a>
@@ -213,9 +256,20 @@
         
           <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" >Search Pokemon by Name</a>
+                    <ul class="dropdown-menu scrollable-menu">
+                    <input class="form-control" id="myInput0" type="text" placeholder="Search...">
+    
+                    {% for pokemon in pokemon_nav %}
+                        <li><a class="dropdown-item" href="{% url 'pokedex:pokemon_detail' pokemon.id %}">{{ pokemon.name|title }}</a></li>
+                    {% endfor %}
+                    </ul>
+            </li>
               
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" >Filter by Type</a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" >Search by Type</a>
                   <ul class="dropdown-menu scrollable-menu">
                   <input class="form-control" id="myInput1" type="text" placeholder="Search...">
 
@@ -227,7 +281,7 @@
               </li>
 
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Filter by Ability</a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Search by Ability</a>
                   <ul class="dropdown-menu scrollable-menu">
                   <input class="form-control" id="myInput2" type="text" placeholder="Search...">
 
@@ -239,7 +293,7 @@
               </li>
 
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Filter by Move</a>
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Search by Move</a>
                   <ul class="dropdown-menu scrollable-menu">
                   <input class="form-control" id="myInput3" type="text" placeholder="Search...">
 
@@ -257,14 +311,34 @@
         </nav>
         {% endcache %}
 
-      <div class="container-fluid w-75">
-
+      <div class="container-fluid w-75 mb-5">
 
         {% block content %}
         {% endblock %}
 
       </div>
-    
+
+      <div class="footer border-top p-5 ">
+          <p>
+                A website by
+                <a href="https://github.com/BigMuuG">
+                    Charles James</a>, with thanks to 
+                <a href="https://github.com/veekun/pokedex/tree/master/pokedex/data/csv">
+                    veekun</a> as the data source. All content © Nintendo, Game Freak, and The Pokémon Company.
+          </p>
+      </div>
+
+
+      <script>
+            $(document).ready(function(){
+              $("#myInput0").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".dropdown-menu li").filter(function() {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+              });
+            });
+    </script>
     <script>
         $(document).ready(function(){
           $("#myInput1").on("keyup", function() {
@@ -295,7 +369,7 @@
               });
             });
           </script>
-
   </body>
+  
 
 </html>

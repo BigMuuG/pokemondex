@@ -3,26 +3,26 @@
 
 {% load pokedex_extras %}
 
-<div class="card mx-auto {{ types.name }} text-dark">
+<div class="card mx-auto {{ types.name }}">
   <h3 class="card-header  ">Explore {{ types.name|title }} type Pokemon!</h3>
-  <div class="card-body">
-      <div class="row justify-content-center align-self align-items-end mx-1">
+  <div class="card-body p-0">
+      <div class="row justify-content-center align-self align-items-end">
 
 
       {% for poketype in pokemontypes %}
       <a href="{% url 'pokedex:pokemon_detail' poketype.pokemon.id %}" class="thumbnail" style="text-decoration : none">
-      <div class="card list col-xs-12 col-md-6 col-lg-4 col-xl-3 my-5 py-5">
+      <div class="card shadow-lg list col-xs-12 col-md-6 col-lg-4 col-xl-3 my-5 pt-5 pb-4 mx-3 rounded">
           <a href="{% url 'pokedex:pokemon_detail' poketype.pokemon.id %}" class="thumbnail" style="text-decoration : none">
 
           {% with img_str=poketype.pokemon.id|pokemon_sprite %}
           <img class="img-fluid" src="{% static ''|addstr:img_str %}" alt="Image Description"> {% endwith %}
 
           <div class="caption ">
-            <h3 class="text-dark">{{ poketype.pokemon.name|title }}</h3>
-            <p class="text-dark">#{{ poketype.pokemon.get_padded_id }}</p>
+            <h3 class="">{{ poketype.pokemon.name|title }}</h3>
+            <p class="">#{{ poketype.pokemon.get_padded_id }}</p>
             <div>
               {% for type in poketype.pokemon.pokemontypes_set.all %}
-              <a href="{% url 'pokedex:pokemon_detail' poketype.pokemon.id %}" class="btn btn-primary {{ type.type }} " role="button">{{ type.type|title }}</a>
+              <a href="{% url 'pokedex:type_detail' type.type.id %}" class="btn btn-primary {{ type.type }} " role="button">{{ type.type|title }}</a>
               {% endfor %}
             </div>
           </div>

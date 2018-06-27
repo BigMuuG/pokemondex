@@ -5,22 +5,29 @@
         <small class="text-muted text-success">#{{ pokemon.get_padded_id }}</small>
     </h1>
 
-    <div class="card flex-row flex-wrap ">
+    <div class="card flex-row flex-wrap align-items-center">
 
-        <div class="card-header col-xs-12 col-md-4">
+        <div class="card-body col-xs-12 col-md-4">
 
-            {% with img_str=pokemon.id|pokemon_sprite %}
+            {% with img_str=pokemon.id|pokemon_sprite f_type=pokemon.pokemontypes_set.all.first.type s_type=pokemon.pokemontypes_set.all.last.type %}
+
             <img class="img-fluid" src="{% static ''|addstr:img_str %}" alt="Image Description"> 
 
+            <a href="{% url 'pokedex:type_detail' f_type.id %}" class="btn btn-primary {{ f_type.name }}" role="button" >{{ f_type.name|title }}</a>
+              {% if f_type != s_type %}
+              <a href="{% url 'pokedex:type_detail' s_type.id %}" class="btn btn-primary {{ s_type.name }}" role="button" >{{ s_type.name|title }}</a>
+              {% endif %}
         </div>
         <div class="card-body col-xs-12 col-md-8 {{ first_type }}" >
             <h5 class="card-header text-dark text-left">Stats</h5>
             <div class="card-body " >
             {% for pstat in stats %}
+            <strong class= "font-weight-bold text-light text-left h6 pl-1 ">{{ pstat.stat }}:</strong>
+
             <div class="mt-2 progress seethru border border-dark text-align-middle" style="height: 35px;">   
         
                 <div class="progress-bar progress-bar-striped  progress-bar-animated {{ first_type }}-single my-0" role="progressbar" style="width: {{ pstat.base_stat|divp:255 }}%" aria-valuenow="{{ pstat.base_stat }}" aria-valuemin="0" aria-valuemax="255">
-                <strong class= "font-weight-bold text-dark text-left h6 pl-1 ">{{ pstat.stat }}: {{ pstat.base_stat }} </strong>
+                        <strong class= "font-weight-bold text-dark text-left h6 pl-1 ">{{ pstat.base_stat }} </strong>
 
             </div>
             </div>
@@ -31,20 +38,257 @@
         {% endwith %}
         </div>
 
-        <div class="card-body col-12 {{ second_type }}" >
-            <h5 class="card-header text-dark text-left">Description</h5>
+        <div class="card-body col-12 pb-5  {{ second_type }}" >
+            <h5 class="card-header text-left text-dark">Description</h5>
             <p class="card-text text-dark">{{ flavor }}</p>
+            <ul class="list-group">
+                    <li class="list-group-item">Height: {{ pokemon.height|heightconv }} </li>
+                    <li class="list-group-item">Weight: {{ pokemon.weight|weightconv }} </li>
+                    <li class="list-group-item">Abilities: 
+                        {% for ability in pokemon_abilities %}
+                        {% if ability.ability.name == pokemon_abilities.last.ability.name %}  
+                        <a href="{% url 'pokedex:ability_detail' ability.ability.id %}" class="" >{{ ability.ability.name|title}}</a>                      
+                        
+                        {% else %}
+                        | <a href="{% url 'pokedex:ability_detail' ability.ability.id %}" class="" >{{ ability.ability.name|title}}</a>                      
+
+                        {% endif %}
+                        {% endfor %}
+                    
+                    </li>
+                    
+                  </ul>
         </div>
+        {% if evolutions_stage_one %}  
+
+        <div class="card-body col-12 pb-5  {{ second_type }}" >
+                <h5 class="card-header text-left text-dark">Evolutions</h5>
+                <p class="card-header text-left mt-5">First Evolution Stage</p>
+
+                <div class=" row  justify-content-center align-self align-items-end ">
+                {% for i in evolutions_stage_one %}
+                <div class=" col-xs-12 col-md-4 pl-2 mx-0 px-1">
+                        {% with p_id=i.id img_str=i.id|pokemon_sprite f_type=i.pokemontypes_set.all.first.type s_type=i.pokemontypes_set.all.last.type %}
+                
+                        <a href="{% url 'pokedex:pokemon_detail' p_id %}" class="thumbnail" style="text-decoration : none">
+                
+                          <img class="img-fluid" src="{% static ''|addstr:img_str %}" alt="Image Description" >
+                            
+                          <div class="caption">
+                            <h3>{{ i.name|title }}</h3>
+                            <p>#{{ i.get_padded_id }}</p>
+                          </div>
+                        </a>
+                          {% endwith %}
+                      </div>
+                      {% endfor %}  
+                    </div>
+                    {% endif %}
+
+            
+            {% if evolutions_stage_two %}
+            <p class="card-header text-left">Second Evolution Stage</p>
+            <div class="row justify-content-center align-self align-items-end ">
+
+                {% for i in evolutions_stage_two %}
+                <div class=" col-xs-12 col-md-4 pl-2 mx-0 px-1">
+                        {% with p_id=i.id img_str=i.id|pokemon_sprite f_type=i.pokemontypes_set.all.first.type s_type=i.pokemontypes_set.all.last.type %}
+                
+                        <a href="{% url 'pokedex:pokemon_detail' p_id %}" class="thumbnail" style="text-decoration : none">
+                
+                          <img class="img-fluid" src="{% static ''|addstr:img_str %}" alt="Image Description" >
+                            
+                          <div class="caption">
+                            <h3>{{ i.name|title }}</h3>
+                            <p>#{{ i.get_padded_id }}</p>
+                          </div>
+                        </a>
+                          {% endwith %}
+                        </div>
+                        {% endfor %}
+
+                      </div>
+                      {% endif %}
+
+                
+            {% if evolutions_stage_three %}   
+            <p class="card-header text-left">Third Evolution Stage</p>
+            <div class="row justify-content-center align-self align-items-end ">
+                {% for i in evolutions_stage_three %}
+                <div class=" col-xs-12 col-md-4 pl-2 mx-0 px-1">
+                        {% with p_id=i.id img_str=i.id|pokemon_sprite f_type=i.pokemontypes_set.all.first.type s_type=i.pokemontypes_set.all.last.type %}
+                
+                        <a href="{% url 'pokedex:pokemon_detail' p_id %}" class="thumbnail" style="text-decoration : none">
+                
+                          <img class="img-fluid" src="{% static ''|addstr:img_str %}" alt="Image Description" >
+                            
+                          <div class="caption">
+                            <h3>{{ i.name|title }}</h3>
+                            <p>#{{ i.get_padded_id }}</p>
+                          </div>
+                        </a>
+                          {% endwith %}
+                        </div>
+                        {% endfor %}
+
+                      </div>
+            {% endif %}
+
+                    
+
+          
+    </div>
+
+
+
+        <div class="card-body col-12 pb-5 text-dark {{ second_type }}" >
+                <h5 class="card-header text-left">Moves Learned by Level</h5>
+                <div class="table-responsive">
+                <table class=" table table-hover table-dark table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Level</th>
+                              <th scope="col">Power</th>
+                              <th scope="col">Accuracy</th>
+                              <th scope="col">PP</th>
+    
+                            </tr>
+                      </thead>
+                      <tbody>
+                        {% for level in level_moves %}
+                        <tr>
+                                <td class="{{ level.move.type }} text-center"><a href="{% url 'pokedex:type_detail' level.move.type.id %}">{{ level.move.type.name|title }}</a></td>
+
+                          <th scope="row"><a href="{% url 'pokedex:move_detail' level.move.id %}" class="" >{{ level.move.name|title }}</a>
+                              </th>
+                          <td>{{ level.level }}</td>
+                          <td>{{ level.move.power }}</td>
+                          <td>{{ level.move.accuracy }}</td>
+                          <td>{{ level.move.pp }}</td>
+
+
+                        </tr>
+                        {% endfor %}
+
+    
+    
+                    </tbody>
+                </table>
+            </div>
+            {% if breed_moves %}  
+
+            <h5 class="card-header text-left">Moves Learned Through Breeding</h5>
+                <div class="table-responsive">
+                <table class=" table table-hover table-dark table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Name</th>
+                          <th scope="col">Power</th>
+                          <th scope="col">Accuracy</th>
+                          <th scope="col">PP</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for level in breed_moves %}
+                        <tr>
+                                <td class="{{ level.move.type }} text-center"><a href="{% url 'pokedex:type_detail' level.move.type.id %}">{{ level.move.type.name|title }}</a></td>
+
+                          <th scope="row"><a href="{% url 'pokedex:move_detail' level.move.id %}" class="" >{{ level.move.name|title }}</a>
+                              </th>
+                          <td>{{ level.move.power }}</td>
+                          <td>{{ level.move.accuracy }}</td>
+                          <td>{{ level.move.pp }}</td>
+
+
+                        </tr>
+                        {% endfor %}
+
+    
+    
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
+
+            {% if tutor_moves %}  
+
+            <h5 class="card-header text-left">Moves Learned Through Tutoring</h5>
+                <div class="table-responsive">
+                <table class=" table table-hover table-dark table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Name</th>
+                              <th scope="col">Power</th>
+                              <th scope="col">Accuracy</th>
+                              <th scope="col">PP</th>
+    
+                            </tr>
+                      </thead>
+                      <tbody>
+                        {% for level in tutor_moves %}
+                        <tr>
+                                <td class="{{ level.move.type }} text-center"><a href="{% url 'pokedex:type_detail' level.move.type.id %}">{{ level.move.type.name|title }}</a></td>
+
+                          <th scope="row"><a href="{% url 'pokedex:move_detail' level.move.id %}" class="" >{{ level.move.name|title }}</a>
+                              </th>
+                          <td>{{ level.move.power }}</td>
+                          <td>{{ level.move.accuracy }}</td>
+                          <td>{{ level.move.pp }}</td>
+
+
+                        </tr>
+                        {% endfor %}
+    
+                    </tbody>               
+                    
+                </table>
+            </div>
+            {% endif %}
+
+            <h5 class="card-header text-left">Moves Learned by Machine (TM/HM)</h5>
+                <div class="table-responsive">
+                <table class=" table table-hover table-dark table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col">Name</th>
+                          <th scope="col">Power</th>
+                          <th scope="col">Accuracy</th>
+                          <th scope="col">PP</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for level in machine_moves %}
+                        <tr>
+                            <td class="{{ level.move.type }} text-center"><a href="{% url 'pokedex:type_detail' level.move.type.id %}">{{ level.move.type.name|title }}</a></td>
+
+                          <th scope="row"><a href="{% url 'pokedex:move_detail' level.move.id %}" class="" >{{ level.move.name|title }}</a>
+                              </th>
+                          <td>{{ level.move.power }}</td>
+                          <td>{{ level.move.accuracy }}</td>
+                          <td>{{ level.move.pp }}</td>
+
+
+                        </tr>
+                        {% endfor %}
+
+    
+    
+                    </tbody>
+                </table>
+            </div>
+            </div>
     </div>
 
 </div>
 
-
-{% if error_message %}
-<p>
-    <strong>{{ error_message }}</strong>
-</p>
-{% endif %}
 
 <ul>
     

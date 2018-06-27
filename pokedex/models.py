@@ -15,11 +15,8 @@ class Abilities(models.Model):
 
     objects = Ordering()
 
-    def get_name(self):
-        return self.name.replace('-', ' ')
-
     def __str__(self):
-        return self.get_name
+        return self.name
 
     class Meta:
         managed = False
@@ -36,6 +33,37 @@ class AbilityFlavorText(models.Model):
     class Meta:
         managed = False
         db_table = 'ability_flavor_text'
+
+
+class EvoOrdering(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('first', 'second', 'third')
+
+
+class Evolutions(models.Model):
+    pokemon = models.ForeignKey(
+        'Pokemon', models.DO_NOTHING, related_name='evolutions', blank=True, null=True)
+    first = models.ForeignKey(
+        'Pokemon', models.DO_NOTHING, related_name='firstevo', blank=True, null=True)
+    second = models.ForeignKey(
+        'Pokemon', models.DO_NOTHING, related_name='secondevo', blank=True, null=True)
+    third = models.ForeignKey(
+        'Pokemon', models.DO_NOTHING, related_name='thirdevo', blank=True, null=True)
+
+    objects = EvoOrdering()
+
+    # def __str__(self):
+    #     if not self.second_id:
+    #         return '{}'.format(self.first_id)
+
+    #     elif not self.third_id:
+    #         return '{}, {}'.format(self.first_id, self.second_id)
+
+    #     return '{}, {}, {}'.format(self.first_id, self.second_id, self.third_id)
+
+    class Meta:
+        managed = False
+        db_table = 'evolutions'
 
 
 class EvolutionTriggerProse(models.Model):
@@ -111,7 +139,10 @@ class Moves(models.Model):
 
 class Pokemon(models.Model):
     id = models.IntegerField(primary_key=True)
-    name = models.TextField(blank=True, null=True)
+    first_evo_id = models.IntegerField()
+    second_evo_id = models.IntegerField()
+    third_evo_id = models.IntegerField()
+    name = models.CharField(unique=True, max_length=255, blank=True, null=True)
     species_id = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
     weight = models.IntegerField(blank=True, null=True)
@@ -143,17 +174,6 @@ class PokemonAbilities(models.Model):
         unique_together = (('pokemon', 'ability'),)
 
 
-class PokemonEvolution(models.Model):
-    id = models.IntegerField(primary_key=True)
-    evolved_pokemon_id = models.IntegerField()
-    evolution_trigger_id = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'pokemon_evolution'
-        unique_together = (('id', 'evolved_pokemon_id'),)
-
-
 class PokemonFlavorText(models.Model):
     pokemon = models.ForeignKey(
         Pokemon, models.DO_NOTHING, primary_key=True, related_name='flavortext')
@@ -181,6 +201,23 @@ class PokemonMoves(models.Model):
     class Meta:
         managed = False
         db_table = 'pokemon_moves'
+        unique_together = (('pokemon', 'move', 'level', 'move_method'),)
+
+
+class DistinctPokemonMoves(models.Model):
+    pokemon = models.ForeignKey('Pokemon', models.DO_NOTHING, primary_key=True)
+    move = models.ForeignKey('Moves', models.DO_NOTHING)
+    move_method = models.ForeignKey('MoveMethods', models.DO_NOTHING)
+    level = models.IntegerField()
+    order = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        id = '{} {}'.format(self.pokemon, self.move)
+        return id
+
+    class Meta:
+        managed = False
+        db_table = 'distinct_pokemon_moves'
         unique_together = (('pokemon', 'move', 'level', 'move_method'),)
 
 

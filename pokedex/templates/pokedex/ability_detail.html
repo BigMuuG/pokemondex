@@ -10,11 +10,11 @@
 {% load pokedex_extras %}
 
 <div class="card mx-auto">
-  <h3 class="card-header text-primary">Explore Pokemon that have the {{ abilities.name|title }} ability!</h3>
-  <div class="card-body">
-    <div class="row justify-content-center align-self align-items-end mx-1">
+  <h3 class="card-header">Explore Pokemon that have the {{ abilities.name|title }} ability!</h3>
+  <div class="card-body p-0">
+    <div class="row justify-content-center align-self align-items-end">
           {% for pokeability in pokemonabilities %}
-          <div class="card list col-xs-12 col-md-6 col-lg-4 col-xl-3 my-5 py-5">
+          <div class="card list col-xs-12 col-md-6 col-lg-4 col-xl-3 my-5 pt-5 pb-4 mx-3 rounded shadow-lg">
               <a href="{% url 'pokedex:pokemon_detail' pokeability.pokemon.id %}" class="thumbnail" style="text-decoration : none">
 
           {% with img_str=pokeability.pokemon.id|pokemon_sprite %}
@@ -25,7 +25,7 @@
             <p>#{{ pokeability.pokemon.get_padded_id }}</p>
             <div>
               {% for type in pokeability.pokemon.pokemontypes_set.all %}
-              <a href="{% url 'pokedex:pokemon_detail' pokeability.pokemon.id %}" class="btn btn-primary {{ type.type }}" role="button">{{ type.type|title }}</a>
+              <a href="{% url 'pokedex:type_detail' type.type.id %}" class="btn btn-primary {{ type.type }}" role="button">{{ type.type|title }}</a>
               {% endfor %}
             </div>
           </div>
